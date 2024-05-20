@@ -28,4 +28,4 @@ DATE = "21:02:35  November 15, 2016"
 
 # Revisions
 
-PROJECT_REVISION = "r2fft_tribuf_impl"
+PROJECT_REVISION = "r2fft_impl"

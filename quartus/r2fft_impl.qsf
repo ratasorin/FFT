@@ -26,7 +26,7 @@
 # Notes:
 #
 # 1) The default values for assignments are stored in the file:
-#		r2fft_tribuf_impl_assignment_defaults.qdf
+#		r2fft_impl_assignment_defaults.qdf
 #    If this file doesn't exist, see file:
 #		assignment_defaults.qdf
 #
@@ -37,9 +37,9 @@
 # -------------------------------------------------------------------------- #
 
 
-set_global_assignment -name FAMILY "Cyclone IV E"
-set_global_assignment -name DEVICE EP4CE22F17C6
-set_global_assignment -name TOP_LEVEL_ENTITY r2fft_tribuf_impl
+set_global_assignment -name FAMILY "MAX 10"
+set_global_assignment -name DEVICE 10M50DAF484C7G
+set_global_assignment -name TOP_LEVEL_ENTITY r2fft_impl
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "21:02:35  NOVEMBER 15, 2016"
 set_global_assignment -name LAST_QUARTUS_VERSION "16.1.0 Lite Edition"
@@ -50,15 +50,12 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name SYSTEMVERILOG_FILE r2fft_impl.sv
-set_global_assignment -name SYSTEMVERILOG_FILE r2fft_tribuf_impl.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/writeBusMax_tribuf.sv
+set_global_assignment -name SYSTEMVERILOG_FILE r2fft_impl.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/writeBusMax.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/twiddleFactorRomBridge.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/readBusMux_tribuf.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/readBusMux.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/ramPipelineBridge.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/radix2Butterfly.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/R2FFT_tribuf.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/R2FFT.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/fftAddressGenerator.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/butterflyUnit.sv
@@ -70,7 +67,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/bfp_bitWidthDetector.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../hdl/bfp_bitWidthAcc.sv
 set_global_assignment -name QIP_FILE twrom.qip
 set_global_assignment -name QIP_FILE dpram.qip
-set_global_assignment -name SDC_FILE r2fft_tribuf_constraint.sdc
+set_global_assignment -name SDC_FILE r2fft_constraint.sdc
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
