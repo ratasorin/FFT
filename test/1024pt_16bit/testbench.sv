@@ -19,6 +19,8 @@ module testbench;
    integer inputReal;
    integer inputImag;
    integer fftBfpExp;
+   integer output_file;
+
    initial begin
       rst_reg = 1;
       autorun_reg = 1;
@@ -29,34 +31,33 @@ module testbench;
       rst_reg = 0;
       wait_clk( 10 );
 
-      $display(",input data");
-      $display(",real part, imag part,");
+      output_file = $fopen("output_testbench.txt", "w");
+      $fwrite(output_file, "INPUT DATA:\n");
 
       for ( i = 0; i < FFT_LENGTH; i++ ) begin
-	 sact_istream_reg <= 1'b1;
-	 inputReal = ToSignedInt(
-				 $sin ( 2.0 * M_PI * 8 *  i / FFT_LENGTH )
-				 );
-	 inputImag = 0;
-	 $display(",%d,%d,", inputReal, inputImag );
-	 sdw_istream_real_reg <= inputReal;
-	 sdw_istream_imag_reg <= inputImag;
-	 wait_clk( 1 );
-      end // for ( i = 0; i < FFT_LENGTH; i++ )
+	      sact_istream_reg <= 1'b1;
+	      inputReal = ToSignedInt($sin ( 2.0 * M_PI * 8 *  i / FFT_LENGTH ));
+	      inputImag = 0;
+         $fwrite(output_file, "REAL DATA: %d, IMAGINARY DATA: %d\n", inputReal, inputImag);
+	      sdw_istream_real_reg <= inputReal;
+	      sdw_istream_imag_reg <= inputImag;
+	      wait_clk( 1 );
+      end
+      
       sact_istream_reg <= 1'b0;
 
       while ( !done ) begin
-	 wait_clk( 1 );
+	      wait_clk( 1 );
       end
 
       fftBfpExp = bfpexp;
+
+      // TODO: see what this is doing
       dumpFromDmaBus();
 
-      $display("");
-      $display(",FFT Result");
-      $display(",real part, imag part, ampl" );
+      $fwrite(output_file, "FFT RESULT:\n");
       for ( i = 0; i < FFT_LENGTH; i++ ) begin
-	 $display( ",%f,%f,%f", 
+	      $fwrite(output_file,  "REAL: %f, IMAGINARY: %f, MAGNITUDE: %f\n", 
 		   resultReal[i] * (2.0**(fftBfpExp)), 
 		   resultImag[i] * (2.0**(fftBfpExp)),
 		   $sqrt(
@@ -66,7 +67,7 @@ module testbench;
 		   * (2.0**(fftBfpExp))
 		   );
       end
-      
+      $fclose(output_file);
       $stop();
    end
    
